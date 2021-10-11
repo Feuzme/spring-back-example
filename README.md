@@ -1,7 +1,7 @@
 # Spring backend example
 ## Prerequisite
 - Docker desktop installed : https://www.docker.com/get-started
-- MongoDB on localhost:27017
+- MongoDB
     - launch it on a CLI
 ```shell
 docker run --name mongoDB -d -p 27017:27017 mongo
