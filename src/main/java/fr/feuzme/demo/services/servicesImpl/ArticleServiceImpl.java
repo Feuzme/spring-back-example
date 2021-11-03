@@ -1,33 +1,31 @@
 package fr.feuzme.demo.services.servicesImpl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import fr.feuzme.demo.models.User;
-import fr.feuzme.demo.repositories.UserRepo;
+import fr.feuzme.demo.models.Article;
+import fr.feuzme.demo.repositories.ArticleRepo;
 import fr.feuzme.demo.services.GenericCRUDService;
 
-public class UserServiceImpl implements GenericCRUDService<User> {
+public class ArticleServiceImpl implements GenericCRUDService<Article> {
 	@Autowired
-	private UserRepo repository;
+	private ArticleRepo repository;
 
 	@Override
-	public User findById(String id) {
+	public Article findById(String id) {
 		return this.repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
 	@Override
-	public List<User> findAll() {
+	public List<Article> findAll() {
 		return this.repository.findAll();
 	}
 
 	@Override
-	public User save(User entity) {
-		Date dateNaissance = new Date(); //TODO
+	public Article save(Article entity) {
 		return this.repository.save(entity);
 	}
 
@@ -40,16 +38,15 @@ public class UserServiceImpl implements GenericCRUDService<User> {
 	}
 
 	@Override
-	public User update(User entity) {
-		User dbUser = this.repository.findById(entity.getId())
+	public Article update(Article entity) {
+		Article dbArticle = this.repository.findById(entity.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		if (entity.getTitle() != null)
+			dbArticle.setTitle(entity.getTitle());
+		if (entity.getContent() != null)
+			dbArticle.setContent(entity.getContent());
 
-		if (entity.getNom() != null)
-			dbUser.setNom(entity.getNom());
-		if (entity.getPrenom() != null)
-			dbUser.setPrenom(entity.getPrenom());
-
-		return this.repository.save(dbUser);
+		return this.repository.save(dbArticle);
 	}
 
 }

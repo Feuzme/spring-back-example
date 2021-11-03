@@ -10,8 +10,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import fr.feuzme.demo.models.Article;
 import fr.feuzme.demo.models.User;
 import fr.feuzme.demo.services.GenericCRUDService;
+import fr.feuzme.demo.services.servicesImpl.ArticleServiceImpl;
 import fr.feuzme.demo.services.servicesImpl.UserServiceImpl;
 
 @Configuration
@@ -20,6 +22,11 @@ public class ServicesConfig {
 	@Bean
 	public GenericCRUDService<User> userServiceFactory() {
 		return new UserServiceImpl();
+	}
+	
+	@Bean
+	public GenericCRUDService<Article> articleServiceFactory() {
+		return new ArticleServiceImpl();
 	}
 
 	@Bean
